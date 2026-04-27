@@ -66,7 +66,28 @@ body {
 
 ::selection { background: var(--accent); color: var(--white); }
 
-img { max-width: 100%; display: block; }
+img {
+  max-width: 100%;
+  display: block;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  -webkit-touch-callout: none;
+  pointer-events: none;
+}
+
+/* Discourage text selection / save on branding + photo */
+.hero-photo-wrap,
+.brand,
+.hero-card-name,
+.hero-card-role {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
 a {
   color: var(--navy-700);

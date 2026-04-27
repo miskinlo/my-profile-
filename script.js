@@ -217,6 +217,57 @@
     attachMagnetic('.btn-outline-dark', 0.14);
   }
 
+  // ----------- Content protection (basic deterrent) -----------
+  // Note: any determined user can still bypass this via DevTools; this only
+  // discourages casual saving/printing/copying.
+
+  // Disable right-click context menu
+  document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+    return false;
+  });
+
+  // Disable image dragging / saving via drag
+  document.addEventListener('dragstart', function (e) {
+    if (e.target && e.target.tagName === 'IMG') {
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  // Disable common save / print / view-source / devtools shortcuts
+  document.addEventListener('keydown', function (e) {
+    var key = e.key ? e.key.toLowerCase() : '';
+    var ctrl = e.ctrlKey || e.metaKey;
+
+    // F12
+    if (e.key === 'F12') { e.preventDefault(); return false; }
+
+    if (ctrl && !e.shiftKey && !e.altKey) {
+      // Ctrl+S (save page), Ctrl+P (print), Ctrl+U (view source)
+      if (key === 's' || key === 'p' || key === 'u') {
+        e.preventDefault();
+        return false;
+      }
+    }
+
+    if (ctrl && e.shiftKey) {
+      // Ctrl+Shift+I / J / C (devtools), Ctrl+Shift+S (save in some browsers)
+      if (key === 'i' || key === 'j' || key === 'c' || key === 's') {
+        e.preventDefault();
+        return false;
+      }
+    }
+  });
+
+  // Discourage long-press save on mobile
+  document.addEventListener('touchstart', function (e) {
+    if (e.target && e.target.tagName === 'IMG') {
+      // allow normal taps but stop long-press image menu on iOS
+      e.target.style.webkitTouchCallout = 'none';
+    }
+  }, { passive: true });
+
   // ----------- Subtle parallax on hero grid pattern -----------
   var gridPattern = document.querySelector('.hero-grid-pattern');
   if (gridPattern && !prefersReducedMotion) {
