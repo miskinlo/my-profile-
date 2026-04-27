@@ -44,6 +44,11 @@ body {
   color: var(--text);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  cursor: none;
+}
+
+a, button, .btn, .nav-toggle, .to-top, .contact-card, .skill-card, .about-card, .cert-card, .timeline-card {
+  cursor: none;
 }
 
 ::selection { background: var(--primary); color: var(--white); }
@@ -477,10 +482,29 @@ h1, h2, h3, h4 { font-family: var(--font); color: var(--text); line-height: 1.15
 
 .section-gradient-alt {
   background: linear-gradient(135deg, #1a365d 0%, #2d3748 50%, #1a202c 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.section-gradient-alt::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(500px 400px at 80% 80%, rgba(255, 107, 53, 0.06), transparent 60%);
+  pointer-events: none;
 }
 
 .section-contact {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 50%, #c44020 100%);
+  background: linear-gradient(135deg, #0f2847 0%, #1a3a5c 40%, #234e72 70%, #1d3557 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.section-contact::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(600px 400px at 20% 80%, rgba(255, 107, 53, 0.08), transparent 60%),
+    radial-gradient(500px 400px at 80% 20%, rgba(99, 102, 241, 0.06), transparent 60%);
+  pointer-events: none;
 }
 
 .section-header {
@@ -536,7 +560,8 @@ h1, h2, h3, h4 { font-family: var(--font); color: var(--text); line-height: 1.15
 
 .about-card:hover {
   transform: translateY(-5px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(255, 107, 53, 0.12);
 }
 
 .about-card:hover::before { transform: scaleX(1); }
@@ -596,7 +621,7 @@ h1, h2, h3, h4 { font-family: var(--font); color: var(--text); line-height: 1.15
 .skill-card:hover {
   transform: translateY(-6px);
   background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25), 0 0 20px rgba(255, 107, 53, 0.08);
 }
 
 .skill-card:hover::after {
@@ -847,9 +872,9 @@ h1, h2, h3, h4 { font-family: var(--font); color: var(--text); line-height: 1.15
 }
 
 .contact-card {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius);
   padding: 30px; text-align: center;
   transition: all 0.4s ease;
@@ -857,15 +882,22 @@ h1, h2, h3, h4 { font-family: var(--font); color: var(--text); line-height: 1.15
 
 .contact-card:hover {
   transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 107, 53, 0.25);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
 }
 
 .contact-icon {
   width: 52px; height: 52px; border-radius: 16px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 107, 53, 0.15);
   display: grid; place-items: center;
   margin: 0 auto 16px;
+  transition: all 0.3s ease;
+}
+
+.contact-card:hover .contact-icon {
+  background: rgba(255, 107, 53, 0.25);
+  transform: scale(1.05);
 }
 .contact-icon svg { width: 26px; height: 26px; color: var(--white); }
 
@@ -912,6 +944,51 @@ h1, h2, h3, h4 { font-family: var(--font); color: var(--text); line-height: 1.15
 .footer-copy {
   font-size: 13px; color: rgba(255, 255, 255, 0.4);
   margin: 0;
+}
+
+/* ================= CUSTOM CURSOR ================= */
+.cursor-dot {
+  position: fixed; top: 0; left: 0;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--primary);
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+  mix-blend-mode: difference;
+}
+
+.cursor-ring {
+  position: fixed; top: 0; left: 0;
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 2px solid rgba(255, 107, 53, 0.5);
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background 0.2s ease;
+}
+
+.cursor-dot.hovering {
+  width: 16px; height: 16px;
+  background: rgba(255, 107, 53, 0.8);
+}
+
+.cursor-ring.hovering {
+  width: 52px; height: 52px;
+  border-color: rgba(255, 107, 53, 0.3);
+  background: rgba(255, 107, 53, 0.05);
+}
+
+.cursor-dot.clicking {
+  width: 6px; height: 6px;
+}
+
+.cursor-ring.clicking {
+  width: 28px; height: 28px;
+  border-color: var(--primary);
+}
+
+/* Hide on touch devices */
+@media (hover: none) {
+  .cursor-dot, .cursor-ring { display: none; }
 }
 
 /* ================= BACK TO TOP ================= */

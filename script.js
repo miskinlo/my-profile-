@@ -146,7 +146,11 @@
   document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     anchor.addEventListener('click', function (e) {
       var targetId = this.getAttribute('href');
-      if (targetId === '#' || targetId === '#top') return;
+      if (targetId === '#' || targetId === '#top') {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
       var targetEl = document.querySelector(targetId);
       if (targetEl) {
         e.preventDefault();
@@ -186,5 +190,60 @@
       this.style.borderColor = '';
     });
   });
+
+  // ----------- Custom cursor animation -----------
+  var cursorDot = document.querySelector('.cursor-dot');
+  var cursorRing = document.querySelector('.cursor-ring');
+
+  if (cursorDot && cursorRing && window.matchMedia('(hover: hover)').matches) {
+    var mouseX = 0, mouseY = 0;
+    var ringX = 0, ringY = 0;
+
+    document.addEventListener('mousemove', function (e) {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursorDot.style.left = mouseX + 'px';
+      cursorDot.style.top = mouseY + 'px';
+    });
+
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.15;
+      ringY += (mouseY - ringY) * 0.15;
+      cursorRing.style.left = ringX + 'px';
+      cursorRing.style.top = ringY + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    var interactiveEls = document.querySelectorAll('a, button, .btn, .nav-toggle, .to-top, .contact-card, .skill-card, .about-card, .cert-card, .timeline-card, input, textarea');
+    interactiveEls.forEach(function (el) {
+      el.addEventListener('mouseenter', function () {
+        cursorDot.classList.add('hovering');
+        cursorRing.classList.add('hovering');
+      });
+      el.addEventListener('mouseleave', function () {
+        cursorDot.classList.remove('hovering');
+        cursorRing.classList.remove('hovering');
+      });
+    });
+
+    document.addEventListener('mousedown', function () {
+      cursorDot.classList.add('clicking');
+      cursorRing.classList.add('clicking');
+    });
+    document.addEventListener('mouseup', function () {
+      cursorDot.classList.remove('clicking');
+      cursorRing.classList.remove('clicking');
+    });
+
+    document.addEventListener('mouseleave', function () {
+      cursorDot.style.opacity = '0';
+      cursorRing.style.opacity = '0';
+    });
+    document.addEventListener('mouseenter', function () {
+      cursorDot.style.opacity = '1';
+      cursorRing.style.opacity = '1';
+    });
+  }
 
 })();
