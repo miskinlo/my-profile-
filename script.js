@@ -126,4 +126,104 @@
       el.addEventListener('click', createRipple);
     });
   }
+
+  // ----------- Counter animation for hero meta -----------
+  function animateCounter(el) {
+    var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+    var suffix = el.getAttribute('data-suffix') || '';
+    var duration = 1400;
+    var start = performance.now();
+
+    function step(now) {
+      var t = Math.min(1, (now - start) / duration);
+      // easeOutCubic
+      var eased = 1 - Math.pow(1 - t, 3);
+      var value = Math.round(eased * target);
+      el.textContent = value + suffix;
+      if (t < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.classList.add('is-done');
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  var counters = Array.prototype.slice.call(document.querySelectorAll('.counter'));
+  if (counters.length) {
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      counters.forEach(function (el) {
+        var t = parseInt(el.getAttribute('data-target'), 10) || 0;
+        el.textContent = t + (el.getAttribute('data-suffix') || '');
+      });
+    } else {
+      var counterObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            counterObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      counters.forEach(function (el) { counterObserver.observe(el); });
+    }
+  }
+
+  // ----------- Tilt 3D on skill & cert cards -----------
+  function attachTilt(selector, maxDeg) {
+    var cards = document.querySelectorAll(selector);
+    cards.forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var rect = card.getBoundingClientRect();
+        var px = (e.clientX - rect.left) / rect.width;
+        var py = (e.clientY - rect.top) / rect.height;
+        var ry = (px - 0.5) * (maxDeg * 2);
+        var rx = -(py - 0.5) * (maxDeg * 2);
+        card.style.setProperty('--rx', rx.toFixed(2) + 'deg');
+        card.style.setProperty('--ry', ry.toFixed(2) + 'deg');
+        card.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+        card.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+      });
+      card.addEventListener('mouseleave', function () {
+        card.style.setProperty('--rx', '0deg');
+        card.style.setProperty('--ry', '0deg');
+      });
+    });
+  }
+
+  if (!prefersReducedMotion && window.matchMedia('(hover: hover)').matches) {
+    attachTilt('.skill-card', 4);
+    attachTilt('.cert-card', 3);
+  }
+
+  // ----------- Magnetic effect on primary buttons -----------
+  function attachMagnetic(selector, strength) {
+    document.querySelectorAll(selector).forEach(function (btn) {
+      btn.addEventListener('mousemove', function (e) {
+        var rect = btn.getBoundingClientRect();
+        var relX = e.clientX - rect.left - rect.width / 2;
+        var relY = e.clientY - rect.top - rect.height / 2;
+        btn.style.setProperty('--tx', (relX * strength).toFixed(1) + 'px');
+        btn.style.setProperty('--ty', (relY * strength).toFixed(1) + 'px');
+      });
+      btn.addEventListener('mouseleave', function () {
+        btn.style.setProperty('--tx', '0px');
+        btn.style.setProperty('--ty', '0px');
+      });
+    });
+  }
+  if (!prefersReducedMotion && window.matchMedia('(hover: hover)').matches) {
+    attachMagnetic('.btn-primary', 0.18);
+    attachMagnetic('.btn-outline-dark', 0.14);
+  }
+
+  // ----------- Subtle parallax on hero grid pattern -----------
+  var gridPattern = document.querySelector('.hero-grid-pattern');
+  if (gridPattern && !prefersReducedMotion) {
+    window.addEventListener('scroll', function () {
+      var y = window.pageYOffset || document.documentElement.scrollTop;
+      if (y > 800) return;
+      gridPattern.style.transform = 'translate3d(0,' + (y * 0.2).toFixed(1) + 'px,0)';
+    }, { passive: true });
+  }
 })();
