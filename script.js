@@ -196,6 +196,7 @@
   var cursorRing = document.querySelector('.cursor-ring');
 
   if (cursorDot && cursorRing && window.matchMedia('(hover: hover)').matches) {
+    document.body.classList.add('has-custom-cursor');
     var mouseX = 0, mouseY = 0;
     var ringX = 0, ringY = 0;
 

@@ -44,10 +44,19 @@ body {
   color: var(--text);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  cursor: none;
 }
 
-a, button, .btn, .nav-toggle, .to-top, .contact-card, .skill-card, .about-card, .cert-card, .timeline-card {
+body.has-custom-cursor,
+body.has-custom-cursor a,
+body.has-custom-cursor button,
+body.has-custom-cursor .btn,
+body.has-custom-cursor .nav-toggle,
+body.has-custom-cursor .to-top,
+body.has-custom-cursor .contact-card,
+body.has-custom-cursor .skill-card,
+body.has-custom-cursor .about-card,
+body.has-custom-cursor .cert-card,
+body.has-custom-cursor .timeline-card {
   cursor: none;
 }
 
