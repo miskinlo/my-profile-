@@ -272,21 +272,22 @@ h1, h2, h3, h4 {
 /* ================= HERO ================= */
 .hero {
   background:
-    /* cobalt glow top-right */
-    radial-gradient(1200px 800px at 88% -5%, rgba(120, 165, 230, 0.22), transparent 60%),
-    /* deep blue glow bottom-left */
-    radial-gradient(900px 600px at 0% 100%, rgba(50, 100, 180, 0.20), transparent 65%),
-    /* subtle warm highlight bottom-right */
-    radial-gradient(700px 500px at 100% 90%, rgba(200, 215, 240, 0.10), transparent 70%),
-    /* premium deep navy -> royal blue -> steel graphite linear */
+    /* aurora mesh: vivid cobalt blob top-right */
+    radial-gradient(1100px 750px at 92% -8%, rgba(64, 130, 255, 0.55), transparent 55%),
+    /* violet/indigo blob center-left */
+    radial-gradient(900px 700px at 8% 35%, rgba(110, 75, 220, 0.42), transparent 60%),
+    /* warm magenta-pink blob bottom-center */
+    radial-gradient(900px 600px at 55% 110%, rgba(220, 90, 175, 0.32), transparent 65%),
+    /* cyan accent top-left */
+    radial-gradient(700px 600px at 12% -10%, rgba(60, 200, 220, 0.30), transparent 60%),
+    /* deep base navy -> royal -> indigo */
     linear-gradient(160deg,
-      #050d1f 0%,
-      #0d1a36 14%,
-      #16284f 30%,
-      #1e3a6e 48%,
-      #2d4f8e 65%,
-      #3a5fa0 80%,
-      #475878 100%
+      #03081a 0%,
+      #07112e 18%,
+      #0c1c4a 38%,
+      #14296b 58%,
+      #1c3186 80%,
+      #2a3a98 100%
     );
   color: var(--white);
   padding: 120px 0 140px;
@@ -341,16 +342,16 @@ h1, h2, h3, h4 {
   will-change: transform;
 }
 .hero-orb-1 {
-  width: 540px; height: 540px;
-  background: radial-gradient(circle, rgba(120, 165, 230, 0.32), transparent 72%);
-  top: -180px; left: -140px;
-  animation: float-orb 16s var(--ease) infinite alternate;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(140, 100, 240, 0.42), transparent 70%);
+  top: -200px; left: -160px;
+  animation: float-orb 18s var(--ease) infinite alternate;
 }
 .hero-orb-2 {
-  width: 580px; height: 580px;
-  background: radial-gradient(circle, rgba(60, 110, 190, 0.30), transparent 72%);
-  bottom: -200px; right: -180px;
-  animation: float-orb 20s var(--ease) infinite alternate-reverse;
+  width: 640px; height: 640px;
+  background: radial-gradient(circle, rgba(80, 165, 255, 0.40), transparent 70%);
+  bottom: -220px; right: -200px;
+  animation: float-orb 22s var(--ease) infinite alternate-reverse;
 }
 @keyframes float-orb {
   0%   { transform: translate(0, 0) scale(1); }
@@ -1501,15 +1502,15 @@ h1, h2, h3, h4 {
    animated underline, photo pulse rings
    ========================================================= */
 
-/* Cursor-follow spotlight in hero — cobalt/ice */
+/* Cursor-follow spotlight in hero — aurora glow */
 .hero-spotlight {
   position: absolute;
   inset: 0;
   pointer-events: none;
   background: radial-gradient(
-    520px circle at var(--mx, 50%) var(--my, 40%),
-    rgba(140, 180, 240, 0.26),
-    rgba(60, 110, 190, 0.10) 45%,
+    560px circle at var(--mx, 50%) var(--my, 40%),
+    rgba(180, 200, 255, 0.32),
+    rgba(140, 100, 240, 0.14) 45%,
     transparent 72%
   );
   transition: background 160ms linear;
@@ -1529,9 +1530,9 @@ h1, h2, h3, h4 {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(232, 240, 255, 0.95) 0%, rgba(140, 180, 240, 0.55) 60%, transparent 100%);
-  box-shadow: 0 0 10px rgba(140, 180, 240, 0.45), 0 0 22px rgba(80, 130, 200, 0.22);
-  opacity: 0.6;
+  background: radial-gradient(circle, rgba(232, 240, 255, 0.98) 0%, rgba(160, 130, 250, 0.6) 55%, transparent 100%);
+  box-shadow: 0 0 12px rgba(160, 130, 250, 0.55), 0 0 26px rgba(80, 165, 255, 0.30);
+  opacity: 0.7;
   animation: particle-float 20s linear infinite;
 }
 .particle.p1  { left: 8%;  top: 80%; width: 5px; height: 5px; animation-duration: 13s; animation-delay: 0s; }
@@ -1690,22 +1691,23 @@ h1, h2, h3, h4 {
     0 4px 12px rgba(30, 58, 110, 0.30);
 }
 
-/* Hero name gradient — chrome with ice-blue mid (richer reflective) */
+/* Hero name gradient — aurora chrome (cyan → white → violet → white → cyan) */
 .hero h1 .hero-name {
   background: linear-gradient(
     100deg,
     #ffffff 0%,
-    #d4e3fb 20%,
-    #7da4dd 45%,
-    #d4e3fb 72%,
+    #c5e8ff 18%,
+    #b3a4ff 42%,
+    #ffd1ee 60%,
+    #c5e8ff 82%,
     #ffffff 100%
   ) !important;
-  background-size: 220% 100% !important;
+  background-size: 240% 100% !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   color: transparent !important;
-  text-shadow: 0 0 40px rgba(125, 164, 221, 0.40);
+  text-shadow: 0 0 48px rgba(140, 130, 255, 0.45);
 }
 
 /* Timeline dot — silver soft glow */
@@ -1784,4 +1786,98 @@ h1, h2, h3, h4 {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; }
   .particle, .photo-pulse, .hero-spotlight { display: none; }
+}
+
+/* ================= DESIGN PHILOSOPHY / TAGLINE SECTION ================= */
+.philosophy {
+  position: relative;
+  padding: 120px 0;
+  background:
+    radial-gradient(900px 500px at 80% 20%, rgba(140, 100, 240, 0.12), transparent 65%),
+    radial-gradient(800px 500px at 10% 90%, rgba(80, 165, 255, 0.10), transparent 65%),
+    linear-gradient(180deg, #f9fafc 0%, #eef1f7 100%);
+  overflow: hidden;
+}
+.philosophy::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(2px 2px at 25% 30%, rgba(60, 100, 200, 0.10) 50%, transparent 51%),
+    radial-gradient(2px 2px at 75% 65%, rgba(140, 100, 240, 0.10) 50%, transparent 51%),
+    radial-gradient(2px 2px at 50% 80%, rgba(60, 200, 220, 0.10) 50%, transparent 51%);
+  pointer-events: none;
+}
+.philosophy-inner {
+  max-width: 920px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.philosophy-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11.5px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(60, 100, 200, 0.10), rgba(140, 100, 240, 0.10));
+  border: 1px solid rgba(60, 100, 200, 0.20);
+  color: #2d4f8e;
+  margin-bottom: 28px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.philosophy-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4082ff, #8c64f0);
+  box-shadow: 0 0 10px rgba(80, 130, 240, 0.55);
+  animation: pulse-dot 2.2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.35); opacity: 0.65; }
+}
+.philosophy-quote {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.6vw, 2.15rem);
+  line-height: 1.45;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin: 0;
+  background: linear-gradient(
+    100deg,
+    #1a2a4d 0%,
+    #2d4f8e 30%,
+    #4f3eb8 55%,
+    #2d4f8e 80%,
+    #1a2a4d 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: tagline-shimmer 12s ease-in-out infinite;
+}
+.philosophy-quote em {
+  font-style: italic;
+  background: linear-gradient(135deg, #4082ff 0%, #8c64f0 50%, #d65aaf 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+@keyframes tagline-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+@media (max-width: 720px) {
+  .philosophy { padding: 80px 0; }
 }
