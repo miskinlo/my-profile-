@@ -6,34 +6,34 @@
    ========================================================= */
 
 :root {
-  /* Palette — premium Stripe/Apple style: charcoal navy + graphite + silver */
-  --navy-900: #0a1628;
-  --navy-800: #142340;
-  --navy-700: #243453;
-  --navy-600: #3d4d6b;
-  --navy-100: #dde2e8;
-  --slate-900: #0f1a2e;
-  --slate-700: #2a3a55;
-  --slate-600: #475569;
-  --slate-500: #6e7c92;
-  --slate-300: #b6bdc9;
-  --slate-200: #d2d7df;
-  --slate-100: #e6e9ef;
-  --slate-50:  #f4f6f9;
-  --accent:    #5a6c8a;
-  --accent-2:  #c9d0db;
-  --accent-3:  #243453;
-  --accent-soft: rgba(90, 108, 138, 0.10);
-  --cyan:      #8fa3bc;
-  --cyan-soft: rgba(143, 163, 188, 0.12);
-  --rose:      #c9d0db;
-  --silver:    #b6bdc9;
-  --silver-light: #dde2e8;
-  --ice:       #e8edf3;
-  --cream:     #f6f7fa;
-  --cream-2:   #eceff4;
+  /* Palette — premium deep navy + royal blue + steel graphite (Stripe/Apple style, richer) */
+  --navy-900: #050d1f;
+  --navy-800: #0d1a36;
+  --navy-700: #16284f;
+  --navy-600: #1e3a6e;
+  --navy-100: #d6dde9;
+  --slate-900: #081226;
+  --slate-700: #1a2a4d;
+  --slate-600: #2d4f8e;
+  --slate-500: #4f6896;
+  --slate-300: #aab4c8;
+  --slate-200: #cbd2dd;
+  --slate-100: #e2e6ee;
+  --slate-50:  #f1f4f9;
+  --accent:    #3a6ec0;
+  --accent-2:  #7da4dd;
+  --accent-3:  #16284f;
+  --accent-soft: rgba(58, 110, 192, 0.12);
+  --cyan:      #5d7fae;
+  --cyan-soft: rgba(93, 127, 174, 0.14);
+  --rose:      #b8c6df;
+  --silver:    #aab4c8;
+  --silver-light: #d6dde9;
+  --ice:       #dde6f3;
+  --cream:     #f4f6fa;
+  --cream-2:   #eaeef4;
   --white:     #ffffff;
-  --success:   #8fa3bc;
+  --success:   #5d7fae;
 
   /* Typography */
   --font-sans: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
@@ -272,19 +272,21 @@ h1, h2, h3, h4 {
 /* ================= HERO ================= */
 .hero {
   background:
-    /* subtle silver glow top-right */
-    radial-gradient(1100px 700px at 90% 0%, rgba(220, 228, 240, 0.18), transparent 60%),
-    /* subtle ice-blue glow bottom-left */
-    radial-gradient(900px 600px at 5% 95%, rgba(180, 200, 220, 0.12), transparent 65%),
-    /* premium navy -> graphite -> silver linear */
+    /* cobalt glow top-right */
+    radial-gradient(1200px 800px at 88% -5%, rgba(120, 165, 230, 0.22), transparent 60%),
+    /* deep blue glow bottom-left */
+    radial-gradient(900px 600px at 0% 100%, rgba(50, 100, 180, 0.20), transparent 65%),
+    /* subtle warm highlight bottom-right */
+    radial-gradient(700px 500px at 100% 90%, rgba(200, 215, 240, 0.10), transparent 70%),
+    /* premium deep navy -> royal blue -> steel graphite linear */
     linear-gradient(160deg,
-      #0a1628 0%,
-      #142340 18%,
-      #1f2e4a 38%,
-      #2a3a55 55%,
-      #475569 72%,
-      #6e7c92 86%,
-      #b6bdc9 100%
+      #050d1f 0%,
+      #0d1a36 14%,
+      #16284f 30%,
+      #1e3a6e 48%,
+      #2d4f8e 65%,
+      #3a5fa0 80%,
+      #475878 100%
     );
   color: var(--white);
   padding: 120px 0 140px;
@@ -340,13 +342,13 @@ h1, h2, h3, h4 {
 }
 .hero-orb-1 {
   width: 540px; height: 540px;
-  background: radial-gradient(circle, rgba(220, 228, 240, 0.22), transparent 72%);
+  background: radial-gradient(circle, rgba(120, 165, 230, 0.32), transparent 72%);
   top: -180px; left: -140px;
   animation: float-orb 16s var(--ease) infinite alternate;
 }
 .hero-orb-2 {
   width: 580px; height: 580px;
-  background: radial-gradient(circle, rgba(180, 200, 220, 0.18), transparent 72%);
+  background: radial-gradient(circle, rgba(60, 110, 190, 0.30), transparent 72%);
   bottom: -200px; right: -180px;
   animation: float-orb 20s var(--ease) infinite alternate-reverse;
 }
@@ -1499,16 +1501,16 @@ h1, h2, h3, h4 {
    animated underline, photo pulse rings
    ========================================================= */
 
-/* Cursor-follow spotlight in hero — silver/ice */
+/* Cursor-follow spotlight in hero — cobalt/ice */
 .hero-spotlight {
   position: absolute;
   inset: 0;
   pointer-events: none;
   background: radial-gradient(
-    480px circle at var(--mx, 50%) var(--my, 40%),
-    rgba(232, 237, 243, 0.18),
-    rgba(180, 200, 220, 0.06) 45%,
-    transparent 70%
+    520px circle at var(--mx, 50%) var(--my, 40%),
+    rgba(140, 180, 240, 0.26),
+    rgba(60, 110, 190, 0.10) 45%,
+    transparent 72%
   );
   transition: background 160ms linear;
   mix-blend-mode: screen;
@@ -1527,9 +1529,9 @@ h1, h2, h3, h4 {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(232, 237, 243, 0.95) 0%, rgba(180, 200, 220, 0.45) 60%, transparent 100%);
-  box-shadow: 0 0 10px rgba(220, 228, 240, 0.4), 0 0 22px rgba(180, 200, 220, 0.18);
-  opacity: 0.5;
+  background: radial-gradient(circle, rgba(232, 240, 255, 0.95) 0%, rgba(140, 180, 240, 0.55) 60%, transparent 100%);
+  box-shadow: 0 0 10px rgba(140, 180, 240, 0.45), 0 0 22px rgba(80, 130, 200, 0.22);
+  opacity: 0.6;
   animation: particle-float 20s linear infinite;
 }
 .particle.p1  { left: 8%;  top: 80%; width: 5px; height: 5px; animation-duration: 13s; animation-delay: 0s; }
@@ -1667,35 +1669,35 @@ h1, h2, h3, h4 {
   background: linear-gradient(135deg, var(--accent), var(--cyan)) !important;
 }
 
-/* Buttons — premium navy/graphite with silver edge highlight */
+/* Buttons — premium royal navy → steel with cobalt edge highlight */
 .btn-primary {
-  background: linear-gradient(135deg, #0f1f3a 0%, #243453 50%, #475569 100%) !important;
+  background: linear-gradient(135deg, #0d1a36 0%, #1e3a6e 45%, #2d4f8e 100%) !important;
   color: var(--white) !important;
-  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  border: 1px solid rgba(140, 180, 240, 0.22) !important;
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.18) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.20) inset,
-    0 10px 24px rgba(15, 26, 46, 0.30),
-    0 2px 6px rgba(15, 26, 46, 0.20);
+    0 1px 0 rgba(180, 210, 255, 0.30) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.25) inset,
+    0 10px 26px rgba(13, 26, 54, 0.45),
+    0 2px 6px rgba(13, 26, 54, 0.25);
 }
 .btn-primary:hover {
-  filter: brightness(1.08);
+  filter: brightness(1.10);
   transform: translateY(-2px);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.28) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.20) inset,
-    0 16px 36px rgba(15, 26, 46, 0.40),
-    0 4px 10px rgba(15, 26, 46, 0.25);
+    0 1px 0 rgba(180, 210, 255, 0.42) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.25) inset,
+    0 18px 40px rgba(30, 58, 110, 0.50),
+    0 4px 12px rgba(30, 58, 110, 0.30);
 }
 
-/* Hero name gradient — silver-chrome */
+/* Hero name gradient — chrome with ice-blue mid (richer reflective) */
 .hero h1 .hero-name {
   background: linear-gradient(
     100deg,
     #ffffff 0%,
-    #e8edf3 22%,
-    #b6bdc9 48%,
-    #e8edf3 74%,
+    #d4e3fb 20%,
+    #7da4dd 45%,
+    #d4e3fb 72%,
     #ffffff 100%
   ) !important;
   background-size: 220% 100% !important;
@@ -1703,7 +1705,7 @@ h1, h2, h3, h4 {
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   color: transparent !important;
-  text-shadow: 0 0 36px rgba(220, 228, 240, 0.30);
+  text-shadow: 0 0 40px rgba(125, 164, 221, 0.40);
 }
 
 /* Timeline dot — silver soft glow */
@@ -1717,22 +1719,22 @@ h1, h2, h3, h4 {
 /* Section-head shimmer triggers when reveal observer adds .is-visible */
 .section-head.reveal { /* hook for shimmer */ }
 
-/* Hero card — premium frosted glass with silver edge */
+/* Hero card — premium frosted glass with cobalt-blue edge */
 .hero-card {
   background: linear-gradient(
     160deg,
-    rgba(255, 255, 255, 0.10) 0%,
-    rgba(255, 255, 255, 0.05) 60%,
-    rgba(180, 200, 220, 0.06) 100%
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.04) 55%,
+    rgba(60, 110, 190, 0.10) 100%
   ) !important;
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-  backdrop-filter: blur(18px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(180, 210, 255, 0.18) !important;
   box-shadow:
-    0 30px 80px rgba(10, 22, 40, 0.40),
-    0 1px 0 rgba(255, 255, 255, 0.20) inset,
-    0 -1px 0 rgba(255, 255, 255, 0.04) inset,
-    0 0 0 1px rgba(220, 228, 240, 0.10);
+    0 30px 80px rgba(5, 13, 31, 0.55),
+    0 1px 0 rgba(255, 255, 255, 0.24) inset,
+    0 -1px 0 rgba(60, 110, 190, 0.08) inset,
+    0 0 0 1px rgba(140, 180, 240, 0.10);
   position: relative;
 }
 
