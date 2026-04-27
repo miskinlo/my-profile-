@@ -1,13 +1,15 @@
 // =====================================================================
-// Ahmad Baehaqi — Portfolio script (v2)
+// Ahmad Baehaqi — Portfolio script
+// SmoothieJuicy-inspired redesign
 //   * footer year
 //   * mobile nav toggle
 //   * scroll progress bar
 //   * sticky header shadow
 //   * reveal-on-scroll (IntersectionObserver)
 //   * active link highlight
-//   * ripple click effect on .btn-ripple
+//   * counter animation
 //   * back-to-top visibility
+//   * smooth section transitions
 // =====================================================================
 
 (function () {
@@ -57,7 +59,7 @@
 
     if (progressBar) progressBar.style.width = percent + '%';
     if (header) header.classList.toggle('is-scrolled', scrollTop > 12);
-    if (toTop)  toTop.classList.toggle('is-visible', scrollTop > 480);
+    if (toTop) toTop.classList.toggle('is-visible', scrollTop > 480);
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -99,205 +101,90 @@
     sections.forEach(function (s) { activeObserver.observe(s); });
   }
 
-  // ----------- Ripple click effect -----------
-  function createRipple(e) {
-    var target = e.currentTarget;
-    var rect = target.getBoundingClientRect();
-    var size = Math.max(rect.width, rect.height);
-    var x = (e.clientX || (rect.left + rect.width / 2)) - rect.left - size / 2;
-    var y = (e.clientY || (rect.top + rect.height / 2)) - rect.top - size / 2;
-
-    var ripple = document.createElement('span');
-    ripple.className = 'ripple';
-    ripple.style.width = ripple.style.height = size + 'px';
-    ripple.style.left = x + 'px';
-    ripple.style.top  = y + 'px';
-
-    // remove existing ripple for crisp re-animation
-    var prev = target.querySelector('.ripple');
-    if (prev) prev.remove();
-
-    target.appendChild(ripple);
-    setTimeout(function () { ripple.remove(); }, 650);
-  }
-
-  if (!prefersReducedMotion) {
-    document.querySelectorAll('.btn-ripple').forEach(function (el) {
-      el.addEventListener('click', createRipple);
-    });
-  }
-
-  // ----------- Counter animation for hero meta -----------
+  // ----------- Counter animation -----------
   function animateCounter(el) {
     var target = parseInt(el.getAttribute('data-target'), 10) || 0;
     var suffix = el.getAttribute('data-suffix') || '';
-    var duration = 1400;
+    var duration = 1500;
     var start = performance.now();
 
     function step(now) {
-      var t = Math.min(1, (now - start) / duration);
+      var elapsed = now - start;
+      var progress = Math.min(elapsed / duration, 1);
       // easeOutCubic
-      var eased = 1 - Math.pow(1 - t, 3);
-      var value = Math.round(eased * target);
-      el.textContent = value + suffix;
-      if (t < 1) {
-        requestAnimationFrame(step);
-      } else {
-        el.classList.add('is-done');
-      }
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var current = Math.round(eased * target);
+      el.textContent = current + suffix;
+      if (progress < 1) requestAnimationFrame(step);
     }
+
     requestAnimationFrame(step);
   }
 
-  var counters = Array.prototype.slice.call(document.querySelectorAll('.counter'));
-  if (counters.length) {
-    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
-      counters.forEach(function (el) {
-        var t = parseInt(el.getAttribute('data-target'), 10) || 0;
-        el.textContent = t + (el.getAttribute('data-suffix') || '');
+  var counters = document.querySelectorAll('.stat-number[data-target]');
+
+  if (!prefersReducedMotion && 'IntersectionObserver' in window && counters.length) {
+    var counterObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
       });
-    } else {
-      var counterObserver = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            animateCounter(entry.target);
-            counterObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.3 });
-      counters.forEach(function (el) { counterObserver.observe(el); });
-    }
+    }, { threshold: 0.5 });
+
+    counters.forEach(function (el) { counterObserver.observe(el); });
+  } else {
+    counters.forEach(function (el) {
+      var target = el.getAttribute('data-target') || '0';
+      var suffix = el.getAttribute('data-suffix') || '';
+      el.textContent = target + suffix;
+    });
   }
 
-  // ----------- Tilt 3D on skill & cert cards -----------
-  function attachTilt(selector, maxDeg) {
-    var cards = document.querySelectorAll(selector);
-    cards.forEach(function (card) {
+  // ----------- Smooth anchor scroll -----------
+  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+    anchor.addEventListener('click', function (e) {
+      var targetId = this.getAttribute('href');
+      if (targetId === '#' || targetId === '#top') return;
+      var targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        e.preventDefault();
+        var offset = 80;
+        var top = targetEl.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // ----------- Skill card hover tilt (subtle) -----------
+  if (!prefersReducedMotion) {
+    document.querySelectorAll('.skill-card').forEach(function (card) {
       card.addEventListener('mousemove', function (e) {
         var rect = card.getBoundingClientRect();
-        var px = (e.clientX - rect.left) / rect.width;
-        var py = (e.clientY - rect.top) / rect.height;
-        var ry = (px - 0.5) * (maxDeg * 2);
-        var rx = -(py - 0.5) * (maxDeg * 2);
-        card.style.setProperty('--rx', rx.toFixed(2) + 'deg');
-        card.style.setProperty('--ry', ry.toFixed(2) + 'deg');
-        card.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
-        card.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        var centerX = rect.width / 2;
+        var centerY = rect.height / 2;
+        var rotateX = (y - centerY) / 20;
+        var rotateY = (centerX - x) / 20;
+        card.style.transform = 'perspective(600px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-6px)';
       });
+
       card.addEventListener('mouseleave', function () {
-        card.style.setProperty('--rx', '0deg');
-        card.style.setProperty('--ry', '0deg');
+        card.style.transform = '';
       });
     });
   }
 
-  if (!prefersReducedMotion && window.matchMedia('(hover: hover)').matches) {
-    attachTilt('.skill-card', 4);
-    attachTilt('.cert-card', 3);
-  }
-
-  // ----------- Magnetic effect on primary buttons -----------
-  function attachMagnetic(selector, strength) {
-    document.querySelectorAll(selector).forEach(function (btn) {
-      btn.addEventListener('mousemove', function (e) {
-        var rect = btn.getBoundingClientRect();
-        var relX = e.clientX - rect.left - rect.width / 2;
-        var relY = e.clientY - rect.top - rect.height / 2;
-        btn.style.setProperty('--tx', (relX * strength).toFixed(1) + 'px');
-        btn.style.setProperty('--ty', (relY * strength).toFixed(1) + 'px');
-      });
-      btn.addEventListener('mouseleave', function () {
-        btn.style.setProperty('--tx', '0px');
-        btn.style.setProperty('--ty', '0px');
-      });
+  // ----------- Timeline card hover glow -----------
+  document.querySelectorAll('.timeline-card').forEach(function (card) {
+    card.addEventListener('mouseenter', function () {
+      this.style.borderColor = 'rgba(255, 107, 53, 0.15)';
     });
-  }
-  if (!prefersReducedMotion && window.matchMedia('(hover: hover)').matches) {
-    attachMagnetic('.btn-primary', 0.18);
-    attachMagnetic('.btn-outline-dark', 0.14);
-  }
-
-  // ----------- Hero cursor spotlight -----------
-  var heroEl = document.querySelector('.hero');
-  var spotEl = document.querySelector('.hero-spotlight');
-  if (heroEl && spotEl && !prefersReducedMotion && window.matchMedia('(hover: hover)').matches) {
-    var spotRaf = null;
-    var spotX = 50, spotY = 40;
-    heroEl.addEventListener('pointermove', function (e) {
-      var rect = heroEl.getBoundingClientRect();
-      spotX = ((e.clientX - rect.left) / rect.width) * 100;
-      spotY = ((e.clientY - rect.top) / rect.height) * 100;
-      if (spotRaf) return;
-      spotRaf = requestAnimationFrame(function () {
-        spotEl.style.setProperty('--mx', spotX + '%');
-        spotEl.style.setProperty('--my', spotY + '%');
-        spotRaf = null;
-      });
+    card.addEventListener('mouseleave', function () {
+      this.style.borderColor = '';
     });
-    heroEl.addEventListener('pointerleave', function () {
-      spotEl.style.setProperty('--mx', '50%');
-      spotEl.style.setProperty('--my', '40%');
-    });
-  }
-
-  // ----------- Content protection (basic deterrent) -----------
-  // Note: any determined user can still bypass this via DevTools; this only
-  // discourages casual saving/printing/copying.
-
-  // Disable right-click context menu
-  document.addEventListener('contextmenu', function (e) {
-    e.preventDefault();
-    return false;
   });
 
-  // Disable image dragging / saving via drag
-  document.addEventListener('dragstart', function (e) {
-    if (e.target && e.target.tagName === 'IMG') {
-      e.preventDefault();
-      return false;
-    }
-  });
-
-  // Disable common save / print / view-source / devtools shortcuts
-  document.addEventListener('keydown', function (e) {
-    var key = e.key ? e.key.toLowerCase() : '';
-    var ctrl = e.ctrlKey || e.metaKey;
-
-    // F12
-    if (e.key === 'F12') { e.preventDefault(); return false; }
-
-    if (ctrl && !e.shiftKey && !e.altKey) {
-      // Ctrl+S (save page), Ctrl+P (print), Ctrl+U (view source)
-      if (key === 's' || key === 'p' || key === 'u') {
-        e.preventDefault();
-        return false;
-      }
-    }
-
-    if (ctrl && e.shiftKey) {
-      // Ctrl+Shift+I / J / C (devtools), Ctrl+Shift+S (save in some browsers)
-      if (key === 'i' || key === 'j' || key === 'c' || key === 's') {
-        e.preventDefault();
-        return false;
-      }
-    }
-  });
-
-  // Discourage long-press save on mobile
-  document.addEventListener('touchstart', function (e) {
-    if (e.target && e.target.tagName === 'IMG') {
-      // allow normal taps but stop long-press image menu on iOS
-      e.target.style.webkitTouchCallout = 'none';
-    }
-  }, { passive: true });
-
-  // ----------- Subtle parallax on hero grid pattern -----------
-  var gridPattern = document.querySelector('.hero-grid-pattern');
-  if (gridPattern && !prefersReducedMotion) {
-    window.addEventListener('scroll', function () {
-      var y = window.pageYOffset || document.documentElement.scrollTop;
-      if (y > 800) return;
-      gridPattern.style.transform = 'translate3d(0,' + (y * 0.2).toFixed(1) + 'px,0)';
-    }, { passive: true });
-  }
 })();
