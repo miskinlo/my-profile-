@@ -217,6 +217,29 @@
     attachMagnetic('.btn-outline-dark', 0.14);
   }
 
+  // ----------- Hero cursor spotlight -----------
+  var heroEl = document.querySelector('.hero');
+  var spotEl = document.querySelector('.hero-spotlight');
+  if (heroEl && spotEl && !prefersReducedMotion && window.matchMedia('(hover: hover)').matches) {
+    var spotRaf = null;
+    var spotX = 50, spotY = 40;
+    heroEl.addEventListener('pointermove', function (e) {
+      var rect = heroEl.getBoundingClientRect();
+      spotX = ((e.clientX - rect.left) / rect.width) * 100;
+      spotY = ((e.clientY - rect.top) / rect.height) * 100;
+      if (spotRaf) return;
+      spotRaf = requestAnimationFrame(function () {
+        spotEl.style.setProperty('--mx', spotX + '%');
+        spotEl.style.setProperty('--my', spotY + '%');
+        spotRaf = null;
+      });
+    });
+    heroEl.addEventListener('pointerleave', function () {
+      spotEl.style.setProperty('--mx', '50%');
+      spotEl.style.setProperty('--my', '40%');
+    });
+  }
+
   // ----------- Content protection (basic deterrent) -----------
   // Note: any determined user can still bypass this via DevTools; this only
   // discourages casual saving/printing/copying.
