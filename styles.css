@@ -2080,3 +2080,53 @@ strong {
 
 /* Status pulse text */
 .status-line, .hero-card .status { color: #5dd4a8 !important; font-weight: 600 !important; }
+
+/* ================= HEADING GRADIENT FIX (dark mode) ================= */
+/* Override the navy-on-navy invisible gradient */
+.section-head h2 {
+  background-image: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #d4e3fb 30%,
+    #b3a4ff 50%,
+    #d4e3fb 70%,
+    #ffffff 100%
+  ) !important;
+  background-size: 220% 100% !important;
+  background-position: 0% 0 !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  filter: drop-shadow(0 2px 16px rgba(140, 100, 240, 0.30));
+}
+.section-head.is-visible h2 {
+  animation: heading-shimmer-dark 1.6s var(--ease-out) 0.3s 1 forwards !important;
+}
+@keyframes heading-shimmer-dark {
+  0%   { background-position: 100% 0; }
+  100% { background-position: 0% 0; }
+}
+
+/* H3 inside cards — solid white, no gradient */
+.skill-card h3,
+.cert-card h3,
+.contact-card h3,
+.edu-card h3,
+.about-card h3,
+.timeline-card h3 {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: none !important;
+  filter: none !important;
+}
+
+/* Hero name — bright iridescent already; keep but ensure fallback */
+.title strong,
+.hero-title strong {
+  color: #ffffff;
+}
+
+/* Greeting and tagline */
+.hero-greet,
+.hero-tagline { color: #d4dceb !important; }
