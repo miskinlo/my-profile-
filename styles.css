@@ -1977,3 +1977,106 @@ h1, h2, h3, h4 { color: #f1f4fb !important; }
 .section-alt {
   position: relative;
 }
+
+/* ================= READABILITY PASS — boost contrast ================= */
+/* Body text & paragraphs */
+body { color: #d8dee9 !important; }
+p, li, dd, dt, small { color: #d8dee9 !important; }
+
+/* Lead / section description */
+.section-lead { color: #c8d1e0 !important; }
+.lead { color: #d4dceb !important; }
+.lead strong { color: #ffffff !important; }
+
+/* Card descriptions */
+.skill-card p,
+.cert-card p,
+.contact-card p,
+.edu-card p,
+.about-card p,
+.timeline-card p,
+.skill-card li,
+.about-card li,
+.mini-list li,
+.timeline-card li {
+  color: #d8dee9 !important;
+}
+
+/* Strong emphasis (highlight) */
+.skill-card strong,
+.timeline-card strong,
+.about-card strong,
+.lead strong,
+strong {
+  color: #ffffff !important;
+  font-weight: 700;
+}
+
+/* Hero name greeting */
+.hero-greet { color: #d4dceb !important; }
+.title { color: #d4dceb !important; }
+.title .sep { color: #b3a4ff !important; }
+
+/* Hero meta */
+.hero-meta li small { color: #b6bdc9 !important; }
+
+/* Eyebrow chip — clearer text */
+.eyebrow {
+  color: #d4dceb !important;
+  font-size: 12px !important;
+  letter-spacing: 2.5px !important;
+  font-weight: 700 !important;
+}
+
+/* Timeline period pill — readable */
+.timeline-period {
+  color: #ffffff !important;
+  background: rgba(64, 130, 255, 0.20) !important;
+  border: 1px solid rgba(140, 180, 240, 0.35) !important;
+  font-weight: 600 !important;
+}
+
+/* Timeline summary box */
+.timeline-summary {
+  color: #e2e8f4 !important;
+}
+
+/* Tag pills — clearer */
+.tag-pill {
+  color: #ffffff !important;
+  background: rgba(140, 180, 240, 0.16) !important;
+  border: 1px solid rgba(140, 180, 240, 0.32) !important;
+  font-weight: 600 !important;
+}
+
+/* Check list bullets */
+.check-list li { color: #d8dee9 !important; }
+.check-list li::before { color: #5dd4a8 !important; }
+
+/* Hero card profile (right side) */
+.hero-card { color: #e2e8f4 !important; }
+.hero-card dt { color: #b3a4ff !important; font-weight: 700 !important; letter-spacing: 1.5px !important; }
+.hero-card dd, .hero-card-name, .hero-card-role { color: #ffffff !important; }
+.hero-card a { color: #d4e3fb !important; }
+.hero-card a:hover { color: #ffffff !important; }
+.hero-card-role { color: #c8d1e0 !important; }
+
+/* Footer contrast */
+.site-footer,
+.site-footer p,
+.site-footer small { color: #c8d1e0 !important; }
+
+/* Contact card text */
+.contact-card dt { color: #b3a4ff !important; font-weight: 700 !important; letter-spacing: 1.5px !important; }
+.contact-card dd, .contact-card a { color: #ffffff !important; }
+.contact-card a:hover { color: #d4e3fb !important; }
+
+/* Badge "Sekarang" */
+.badge-current { color: #ffffff !important; font-weight: 700 !important; }
+
+/* Section heading underline always visible */
+.section-head h2 { color: #ffffff !important; }
+.section-head { text-align: left; }
+
+/* Status pulse text */
+.status-line, .hero-card .status { color: #5dd4a8 !important; font-weight: 600 !important; }
