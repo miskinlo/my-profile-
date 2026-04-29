@@ -2130,3 +2130,113 @@ strong {
 /* Greeting and tagline */
 .hero-greet,
 .hero-tagline { color: #d4dceb !important; }
+
+/* ================= ICON BADGES VIBRANT + CONTRAST FIX ================= */
+/* Solid vibrant gradient icon badge above h3 */
+.skill-icon,
+.about-card-icon,
+.cert-icon,
+.edu-icon,
+.contact-icon {
+  background: linear-gradient(135deg, #4082ff 0%, #6e4bdc 60%, #b3a4ff 100%) !important;
+  border: 1px solid rgba(180, 200, 255, 0.35) !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 6px 18px rgba(80, 80, 220, 0.30),
+    0 0 0 4px rgba(140, 100, 240, 0.10) !important;
+}
+.skill-icon svg,
+.about-card-icon svg,
+.cert-icon svg,
+.edu-icon svg,
+.contact-icon svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+/* Hover icon stays vibrant */
+.skill-card:hover .skill-icon,
+.about-card:hover .about-card-icon,
+.cert-card:hover .cert-icon,
+.edu-card:hover .edu-icon,
+.contact-card:hover .contact-icon {
+  background: linear-gradient(135deg, #5290ff 0%, #8c64f0 55%, #d65aaf 100%) !important;
+  box-shadow:
+    0 10px 24px rgba(140, 100, 240, 0.45),
+    0 0 0 4px rgba(140, 100, 240, 0.18) !important;
+  transform: scale(1.05);
+}
+
+/* Section-alt distinct: deeper navy + subtle violet glow */
+.section-alt {
+  background:
+    radial-gradient(800px 500px at 50% 0%, rgba(110, 75, 220, 0.10), transparent 70%),
+    linear-gradient(180deg, #07112e 0%, #050d1f 100%) !important;
+}
+
+/* Default section gets tiny tint so it's not flat-identical to section-alt */
+.section:not(.section-alt) {
+  background:
+    radial-gradient(700px 400px at 80% 50%, rgba(64, 130, 255, 0.06), transparent 70%),
+    transparent !important;
+}
+
+/* Card border — a bit more present */
+.skill-card,
+.cert-card,
+.contact-card,
+.edu-card,
+.about-card,
+.timeline-card {
+  border-color: rgba(140, 180, 240, 0.18) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025)) !important;
+}
+
+/* Hero subtitle / tagline */
+.hero-tagline,
+.hero-subtitle,
+.hero-section-subtitle,
+.hero p.lead { color: #d4dceb !important; }
+
+/* Hero sub - small caption ("Operator Produksi & Gudang • Teknisi Jaringan Komputer") */
+.title + p,
+.title-sub,
+.hero-role { color: #d4dceb !important; font-weight: 500 !important; }
+
+/* Eyebrow chip — clearer text & background */
+.eyebrow,
+.section-head .eyebrow {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, rgba(64, 130, 255, 0.18), rgba(140, 100, 240, 0.18)) !important;
+  border: 1px solid rgba(140, 180, 240, 0.35) !important;
+  font-weight: 700 !important;
+  letter-spacing: 2.5px !important;
+}
+
+/* Nav links contrast */
+.primary-nav a:not(.nav-cta) { color: #d4dceb !important; }
+.primary-nav a:not(.nav-cta):hover,
+.primary-nav a.is-active:not(.nav-cta) { color: #ffffff !important; }
+
+/* Brand text in header */
+.brand-text strong { color: #ffffff !important; }
+.brand-text small  { color: #c8d1e0 !important; letter-spacing: 1.5px !important; }
+
+/* Footer brighter */
+.site-footer * { color: #d8dee9 !important; }
+.site-footer strong, .site-footer a { color: #ffffff !important; }
+.site-footer a:hover { color: #b3a4ff !important; }
+
+/* Hero meta numbers */
+.hero-meta li strong,
+.hero-meta li b { color: #ffffff !important; font-weight: 800 !important; }
+.hero-meta li small { color: #b3a4ff !important; letter-spacing: 1.5px !important; }
+
+/* Hero stats divider hint */
+.hero-meta { border-top: 1px solid rgba(140, 180, 240, 0.18) !important; }
+
+/* Scroll cue text */
+.scroll-cue, .scroll-hint, .scroll-down { color: #b3a4ff !important; }
+
+/* "Lihat Pengalaman" arrow color */
+.btn-primary svg, .btn-ghost svg { stroke: #ffffff !important; }
