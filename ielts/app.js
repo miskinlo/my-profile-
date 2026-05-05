@@ -338,6 +338,7 @@ function showGrammarQuestion() {
 
     document.getElementById('grammar-options').innerHTML = optionsHtml;
     document.getElementById('grammar-next').disabled = true;
+    document.getElementById('grammar-skip').disabled = false;
 }
 
 function selectGrammarOption(index) {
@@ -370,6 +371,7 @@ function selectGrammarOption(index) {
 
     state.grammar.answers.push({ question: state.grammar.currentQ, selected: index, correct: q.answer });
     document.getElementById('grammar-next').disabled = false;
+    document.getElementById('grammar-skip').disabled = true;
 }
 
 function nextQuestion(type) {
@@ -554,6 +556,12 @@ function updateVocabStats() {
 // ============================================================
 
 function loadListeningScenario(index) {
+    // Cancel any active playback timeout
+    if (state.listening.playbackTimeout) {
+        clearTimeout(state.listening.playbackTimeout);
+        state.listening.playbackTimeout = null;
+    }
+    state.listening.playbackGeneration = (state.listening.playbackGeneration || 0) + 1;
     state.listening.currentScenario = index;
     state.listening.conversationIndex = 0;
     state.listening.playing = false;
@@ -567,6 +575,7 @@ function loadListeningScenario(index) {
     document.getElementById('conversation-display').innerHTML = '';
     document.getElementById('transcript-box').classList.add('hidden');
     document.getElementById('play-btn').textContent = '▶️ Play Conversation';
+    document.getElementById('play-btn').disabled = false;
 }
 
 function playConversation() {
@@ -575,6 +584,8 @@ function playConversation() {
 
     state.listening.playing = true;
     state.listening.conversationIndex = 0;
+    state.listening.playbackGeneration = (state.listening.playbackGeneration || 0) + 1;
+    const currentGeneration = state.listening.playbackGeneration;
     document.getElementById('conversation-display').innerHTML = '';
     document.getElementById('play-btn').textContent = '⏸️ Playing...';
     document.getElementById('play-btn').disabled = true;
@@ -582,6 +593,8 @@ function playConversation() {
     const speed = state.listening.speed === 'slow' ? 2500 : 1500;
 
     function showNextLine() {
+        if (currentGeneration !== state.listening.playbackGeneration) return;
+
         if (state.listening.conversationIndex >= scenario.conversation.length) {
             state.listening.playing = false;
             document.getElementById('play-btn').textContent = '🔄 Replay';
@@ -603,7 +616,7 @@ function playConversation() {
         display.scrollTop = display.scrollHeight;
 
         state.listening.conversationIndex++;
-        setTimeout(showNextLine, speed);
+        state.listening.playbackTimeout = setTimeout(showNextLine, speed);
     }
 
     showNextLine();
