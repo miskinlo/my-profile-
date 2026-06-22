@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Beginner Practice — Interactive Learning</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-brand">
+            <span class="brand-icon">📚</span>
+            <span class="brand-text">IELTS Prep</span>
+        </div>
+        <button class="nav-toggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links">
+            <li><a href="#" data-section="dashboard" class="active">Dashboard</a></li>
+            <li><a href="#" data-section="grammar">Grammar</a></li>
+            <li><a href="#" data-section="vocabulary">Vocabulary</a></li>
+            <li><a href="#" data-section="listening">Listening</a></li>
+            <li><a href="#" data-section="reading">Reading</a></li>
+            <li><a href="#" data-section="scores">Scores</a></li>
+        </ul>
+    </nav>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="section active">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1>Welcome to IELTS Practice</h1>
+                <p class="subtitle">Your personalized English learning journey starts here</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-value" id="total-quizzes">0</div>
+                    <div class="stat-label">Quizzes Taken</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-value" id="avg-score">0%</div>
+                    <div class="stat-label">Average Score</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🔥</div>
+                    <div class="stat-value" id="streak-days">0</div>
+                    <div class="stat-label">Day Streak</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📝</div>
+                    <div class="stat-value" id="words-learned">0</div>
+                    <div class="stat-label">Words Learned</div>
+                </div>
+            </div>
+
+            <div class="recommendations-section">
+                <h2>📋 Personalized Recommendations</h2>
+                <div id="recommendations-list" class="recommendations-list">
+                    <div class="recommendation-card">
+                        <div class="rec-icon">🚀</div>
+                        <div class="rec-content">
+                            <h3>Get Started!</h3>
+                            <p>Take your first grammar quiz to receive personalized recommendations.</p>
+                        </div>
+                        <button class="btn-primary" onclick="navigateTo('grammar')">Start Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="weekly-progress">
+                <h2>📈 Weekly Progress</h2>
+                <div class="progress-chart" id="weekly-chart">
+                    <div class="chart-bars">
+                        <div class="chart-day" data-day="Mon"><div class="bar"><div class="bar-fill" style="height:0%"></div></div><span>Mon</span></div>
+                        <div class="chart-day" data-day="Tue"><div class="bar"><div class="bar-fill" style="height:0%"></div></div><span>Tue</span></div>
+                        <div class="chart-day" data-day="Wed"><div class="bar"><div class="bar-fill" style="height:0%"></div></div><span>Wed</span></div>
+                        <div class="chart-day" data-day="Thu"><div class="bar"><div class="bar-fill" style="height:0%"></div></div><span>Thu</span></div>
+                        <div class="chart-day" data-day="Fri"><div class="bar"><div class="bar-fill" style="height:0%"></div></div><span>Fri</span></div>
+                        <div class="chart-day" data-day="Sat"><div class="bar"><div class="bar-fill" style="height:0%"></div></div><span>Sat</span></div>
+                        <div class="chart-day" data-day="Sun"><div class="bar"><div class="bar-fill" style="height:0%"></div></div><span>Sun</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grammar Section -->
+    <section id="grammar" class="section">
+        <div class="container">
+            <h1>Grammar Practice</h1>
+            <p class="subtitle">Master tenses, articles, and prepositions</p>
+
+            <div class="quiz-categories">
+                <button class="category-btn active" data-category="tenses">Tenses</button>
+                <button class="category-btn" data-category="articles">Articles</button>
+                <button class="category-btn" data-category="prepositions">Prepositions</button>
+            </div>
+
+            <div class="quiz-container" id="grammar-quiz">
+                <div class="quiz-header">
+                    <div class="quiz-progress">
+                        <span id="grammar-question-num">1</span> / <span id="grammar-total-questions">10</span>
+                    </div>
+                    <div class="quiz-timer" id="grammar-timer">⏱️ 0:00</div>
+                </div>
+
+                <div class="quiz-question" id="grammar-question">
+                    <p class="question-text">Select a category above to begin the quiz.</p>
+                </div>
+
+                <div class="quiz-options" id="grammar-options"></div>
+
+                <div class="quiz-actions">
+                    <button class="btn-secondary" id="grammar-skip" onclick="skipQuestion('grammar')">Skip</button>
+                    <button class="btn-primary" id="grammar-next" onclick="nextQuestion('grammar')" disabled>Next</button>
+                </div>
+            </div>
+
+            <div class="quiz-result hidden" id="grammar-result">
+                <div class="result-circle">
+                    <span id="grammar-score-display">0%</span>
+                </div>
+                <h2 id="grammar-result-title">Quiz Complete!</h2>
+                <p id="grammar-result-message"></p>
+                <div class="result-breakdown" id="grammar-breakdown"></div>
+                <button class="btn-primary" onclick="restartQuiz('grammar')">Try Again</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vocabulary Section -->
+    <section id="vocabulary" class="section">
+        <div class="container">
+            <h1>Vocabulary Flashcards</h1>
+            <p class="subtitle">Build your IELTS word bank</p>
+
+            <div class="vocab-categories">
+                <button class="vocab-cat-btn active" data-vocab="academic">Academic</button>
+                <button class="vocab-cat-btn" data-vocab="everyday">Everyday</button>
+                <button class="vocab-cat-btn" data-vocab="ielts-common">IELTS Common</button>
+            </div>
+
+            <div class="flashcard-container">
+                <div class="flashcard-progress">
+                    <span id="card-current">1</span> / <span id="card-total">0</span>
+                </div>
+
+                <div class="flashcard" id="flashcard" onclick="flipCard()">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front">
+                            <div class="card-word" id="card-word">Click a category to start</div>
+                            <div class="card-phonetic" id="card-phonetic"></div>
+                            <p class="card-hint">Click to reveal definition</p>
+                        </div>
+                        <div class="flashcard-back">
+                            <div class="card-definition" id="card-definition"></div>
+                            <div class="card-example" id="card-example"></div>
+                            <div class="card-synonym" id="card-synonym"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flashcard-controls">
+                    <button class="btn-icon btn-hard" onclick="rateCard('hard')" title="Hard - Show again soon">😰</button>
+                    <button class="btn-icon btn-prev" onclick="prevCard()" title="Previous">⬅️</button>
+                    <button class="btn-icon btn-next" onclick="nextCard()" title="Next">➡️</button>
+                    <button class="btn-icon btn-easy" onclick="rateCard('easy')" title="Easy - Got it!">😊</button>
+                </div>
+
+                <div class="vocab-stats">
+                    <span class="vocab-stat">✅ Learned: <strong id="vocab-learned">0</strong></span>
+                    <span class="vocab-stat">🔄 Reviewing: <strong id="vocab-reviewing">0</strong></span>
+                    <span class="vocab-stat">📚 Remaining: <strong id="vocab-remaining">0</strong></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Listening Section -->
+    <section id="listening" class="section">
+        <div class="container">
+            <h1>Listening Practice</h1>
+            <p class="subtitle">IELTS Section 1 — Conversations</p>
+
+            <div class="listening-scenario" id="listening-scenario">
+                <div class="scenario-header">
+                    <div class="scenario-badge">Section 1</div>
+                    <h2 id="scenario-title">Select a scenario to begin</h2>
+                </div>
+
+                <div class="scenario-selector">
+                    <button class="scenario-btn" data-scenario="0">🏨 Hotel Booking</button>
+                    <button class="scenario-btn" data-scenario="1">🏫 Course Enrollment</button>
+                    <button class="scenario-btn" data-scenario="2">🚗 Car Rental</button>
+                    <button class="scenario-btn" data-scenario="3">🏥 Doctor Appointment</button>
+                    <button class="scenario-btn" data-scenario="4">📦 Delivery Service</button>
+                </div>
+
+                <div class="conversation-box hidden" id="conversation-box">
+                    <div class="conversation-controls">
+                        <button class="btn-primary" id="play-btn" onclick="playConversation()">▶️ Play Conversation</button>
+                        <button class="btn-secondary" onclick="showTranscript()">📄 Show Transcript</button>
+                        <span class="speed-control">
+                            Speed: <button class="speed-btn active" data-speed="slow">Slow</button>
+                            <button class="speed-btn" data-speed="normal">Normal</button>
+                        </span>
+                    </div>
+
+                    <div class="conversation-display" id="conversation-display"></div>
+
+                    <div class="transcript-box hidden" id="transcript-box">
+                        <div id="transcript-content"></div>
+                    </div>
+                </div>
+
+                <div class="listening-questions hidden" id="listening-questions">
+                    <h3>Questions</h3>
+                    <div id="listening-quiz-container"></div>
+                    <button class="btn-primary" onclick="submitListeningAnswers()">Submit Answers</button>
+                </div>
+
+                <div class="listening-result hidden" id="listening-result">
+                    <div class="result-circle">
+                        <span id="listening-score-display">0%</span>
+                    </div>
+                    <h2>Listening Complete!</h2>
+                    <div id="listening-feedback"></div>
+                    <button class="btn-primary" onclick="resetListening()">Try Another</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reading Section -->
+    <section id="reading" class="section">
+        <div class="container">
+            <h1>Reading Practice</h1>
+            <p class="subtitle">IELTS-style reading passages</p>
+
+            <div class="reading-selector">
+                <button class="reading-btn" data-passage="0">📖 Passage 1: Technology</button>
+                <button class="reading-btn" data-passage="1">📖 Passage 2: Environment</button>
+                <button class="reading-btn" data-passage="2">📖 Passage 3: Education</button>
+            </div>
+
+            <div class="reading-container hidden" id="reading-container">
+                <div class="reading-layout">
+                    <div class="passage-panel">
+                        <div class="passage-header">
+                            <h2 id="passage-title"></h2>
+                            <span class="reading-time" id="reading-time">⏱️ 0:00</span>
+                        </div>
+                        <div class="passage-content" id="passage-content"></div>
+                    </div>
+
+                    <div class="questions-panel">
+                        <h3>Questions</h3>
+                        <div id="reading-questions"></div>
+                        <button class="btn-primary" onclick="submitReadingAnswers()">Submit Answers</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reading-result hidden" id="reading-result">
+                <div class="result-circle">
+                    <span id="reading-score-display">0%</span>
+                </div>
+                <h2>Reading Complete!</h2>
+                <div id="reading-feedback"></div>
+                <button class="btn-primary" onclick="resetReading()">Try Another Passage</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scores Section -->
+    <section id="scores" class="section">
+        <div class="container">
+            <h1>Score Tracker</h1>
+            <p class="subtitle">Monitor your weekly progress</p>
+
+            <div class="score-overview">
+                <div class="score-card-large">
+                    <h3>Overall IELTS Estimated Band</h3>
+                    <div class="band-score" id="estimated-band">—</div>
+                    <p class="band-note">Based on your practice performance</p>
+                </div>
+            </div>
+
+            <div class="score-details">
+                <div class="score-section-card">
+                    <h3>📝 Grammar</h3>
+                    <div class="score-bar"><div class="score-fill" id="grammar-score-bar" style="width:0%"></div></div>
+                    <span class="score-percent" id="grammar-percent">0%</span>
+                    <span class="score-count" id="grammar-count">0 quizzes</span>
+                </div>
+                <div class="score-section-card">
+                    <h3>📚 Vocabulary</h3>
+                    <div class="score-bar"><div class="score-fill" id="vocab-score-bar" style="width:0%"></div></div>
+                    <span class="score-percent" id="vocab-percent">0%</span>
+                    <span class="score-count" id="vocab-count">0 words</span>
+                </div>
+                <div class="score-section-card">
+                    <h3>🎧 Listening</h3>
+                    <div class="score-bar"><div class="score-fill" id="listening-score-bar" style="width:0%"></div></div>
+                    <span class="score-percent" id="listening-percent">0%</span>
+                    <span class="score-count" id="listening-count">0 practices</span>
+                </div>
+                <div class="score-section-card">
+                    <h3>📖 Reading</h3>
+                    <div class="score-bar"><div class="score-fill" id="reading-score-bar" style="width:0%"></div></div>
+                    <span class="score-percent" id="reading-percent">0%</span>
+                    <span class="score-count" id="reading-count">0 passages</span>
+                </div>
+            </div>
+
+            <div class="score-history">
+                <h2>Weekly History</h2>
+                <div class="history-table-container">
+                    <table class="history-table" id="history-table">
+                        <thead>
+                            <tr>
+                                <th>Week</th>
+                                <th>Grammar</th>
+                                <th>Vocabulary</th>
+                                <th>Listening</th>
+                                <th>Reading</th>
+                                <th>Overall</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-tbody">
+                            <tr><td colspan="6" class="empty-state">No history yet. Start practicing!</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="actions-row">
+                <button class="btn-secondary" onclick="exportScores()">📥 Export Data</button>
+                <button class="btn-danger" onclick="resetAllData()">🗑️ Reset All Data</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <p>IELTS Beginner Practice &copy; 2025 — Built for Ahmad Baehaqi</p>
+        <a href="../index.html" class="back-link">← Back to Portfolio</a>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
